@@ -273,7 +273,7 @@ class SpeedAnalysisPage(BasePage):
                     ft.Text(
                         "Analyze your website's performance and get detailed insights",
                         size=16,
-                        color=ft.Colors.WHITE_70,
+                        color=ft.Colors.WHITE70,
                         font_family="Iransans-Regular"
                     )
                 ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),

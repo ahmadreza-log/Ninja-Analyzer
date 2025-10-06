@@ -46,7 +46,7 @@ class SidebarComponent:
                         ft.Text(
                             "Website Performance Tool",
                             size=12,
-                            color=ft.Colors.WHITE_70,
+                            color=ft.Colors.WHITE70,
                             font_family="Iransans-Regular"
                         )
                     ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
