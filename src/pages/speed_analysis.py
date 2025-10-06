@@ -40,70 +40,151 @@ class SpeedAnalysisPage(BasePage):
         Returns:
             ft.Column: The speed analysis page content
         """
-        # URL input field
+        # URL input field with improved styling
         self.url_input = ft.TextField(
-            label="Website URL",
-            hint_text="Example: https://google.com",
+            label="🌐 Website URL",
+            hint_text="Enter website URL (e.g., https://google.com)",
             expand=True,
-            border_color=ft.Colors.CYAN,
-            focused_border_color=ft.Colors.CYAN_700
+            border_color=ft.Colors.CYAN_300,
+            focused_border_color=ft.Colors.CYAN_600,
+            border_radius=ft.border_radius.all(10),
+            content_padding=ft.padding.all(15),
+            text_size=16,
+            prefix_icon=ft.Icons.LINK,
+            style=ft.TextFieldStyle(
+                border_color=ft.Colors.CYAN_300,
+                focused_border_color=ft.Colors.CYAN_600,
+                border_width=2
+            )
         )
         
-        # Analyze button
+        # Analyze button with improved styling
         self.analyze_button = ft.ElevatedButton(
-            "Start Speed Analysis",
-            bgcolor=ft.Colors.CYAN,
+            "🚀 Start Analysis",
+            bgcolor=ft.Colors.CYAN_600,
             color=ft.Colors.WHITE,
-            width=200,
-            height=50,
+            width=220,
+            height=55,
             icon=ft.Icons.SPEED,
-            on_click=self.OnAnalyzeClick
+            on_click=self.OnAnalyzeClick,
+            style=ft.ButtonStyle(
+                elevation=3,
+                shadow_color=ft.Colors.CYAN_300,
+                shape=ft.RoundedRectangleBorder(radius=10)
+            )
         )
         
-        # Advanced options
+        # Advanced options with modern design
         self.advanced_options = ft.Container(
             content=ft.Column([
-                ft.Text("Advanced Options", size=16, weight=ft.FontWeight.BOLD, font_family="Iransans-Bold"),
-                ft.Row([
-                    ft.Checkbox(
-                        label="Multiple Tests",
-                        value=False,
-                        on_change=self.OnMultipleTestChange
-                    ),
-                    ft.Checkbox(
-                        label="Deep Analysis",
-                        value=False,
-                        on_change=self.OnDeepTestChange
-                    ),
-                    ft.Checkbox(
-                        label="Mobile Test",
-                        value=False,
-                        on_change=self.OnMobileTestChange
-                    )
-                ], alignment=ft.MainAxisAlignment.SPACE_AROUND),
-                ft.Row([
-                    ft.Text("Test Count:", size=14, font_family="Iransans-Regular"),
-                    ft.Slider(
-                        min=1,
-                        max=10,
-                        divisions=9,
-                        value=3,
-                        label="Test {value}",
-                        on_change=self.OnTestCountChange
-                    )
-                ]),
-                ft.Row([
-                    ft.Checkbox(
-                        label="Real Browser Load (Headless)",
-                        value=True,
-                        on_change=self.OnBrowserTestChange
-                    ),
-                    ft.Text("(requires playwright)", size=12, color=ft.Colors.GREY_600)
-                ])
+                ft.Container(
+                    content=ft.Row([
+                        ft.Icon(ft.Icons.SETTINGS, color=ft.Colors.CYAN_600, size=20),
+                        ft.Text("⚙️ Advanced Options", size=18, weight=ft.FontWeight.BOLD, font_family="Iransans-Bold", color=ft.Colors.CYAN_800)
+                    ]),
+                    padding=ft.padding.only(bottom=15)
+                ),
+                
+                # Options grid
+                ft.Container(
+                    content=ft.Column([
+                        ft.Row([
+                            ft.Container(
+                                content=ft.Checkbox(
+                                    label="🔄 Multiple Tests",
+                                    value=False,
+                                    on_change=self.OnMultipleTestChange,
+                                    active_color=ft.Colors.CYAN_600
+                                ),
+                                padding=10,
+                                bgcolor=ft.Colors.WHITE,
+                                border_radius=ft.border_radius.all(8),
+                                border=ft.border.all(1, ft.Colors.CYAN_200)
+                            ),
+                            ft.Container(
+                                content=ft.Checkbox(
+                                    label="🔍 Deep Analysis",
+                                    value=False,
+                                    on_change=self.OnDeepTestChange,
+                                    active_color=ft.Colors.CYAN_600
+                                ),
+                                padding=10,
+                                bgcolor=ft.Colors.WHITE,
+                                border_radius=ft.border_radius.all(8),
+                                border=ft.border.all(1, ft.Colors.CYAN_200)
+                            ),
+                            ft.Container(
+                                content=ft.Checkbox(
+                                    label="📱 Mobile Test",
+                                    value=False,
+                                    on_change=self.OnMobileTestChange,
+                                    active_color=ft.Colors.CYAN_600
+                                ),
+                                padding=10,
+                                bgcolor=ft.Colors.WHITE,
+                                border_radius=ft.border_radius.all(8),
+                                border=ft.border.all(1, ft.Colors.CYAN_200)
+                            )
+                        ], alignment=ft.MainAxisAlignment.SPACE_AROUND),
+                        
+                        ft.Divider(height=20),
+                        
+                        # Test count slider
+                        ft.Container(
+                            content=ft.Column([
+                                ft.Row([
+                                    ft.Icon(ft.Icons.REPEAT, color=ft.Colors.CYAN_600, size=16),
+                                    ft.Text("Test Count:", size=14, font_family="Iransans-Bold", color=ft.Colors.CYAN_800)
+                                ]),
+                                ft.Slider(
+                                    min=1,
+                                    max=10,
+                                    divisions=9,
+                                    value=3,
+                                    label="Test {value}",
+                                    on_change=self.OnTestCountChange,
+                                    active_color=ft.Colors.CYAN_600,
+                                    inactive_color=ft.Colors.CYAN_200
+                                )
+                            ]),
+                            padding=15,
+                            bgcolor=ft.Colors.WHITE,
+                            border_radius=ft.border_radius.all(8),
+                            border=ft.border.all(1, ft.Colors.CYAN_200)
+                        ),
+                        
+                        ft.Divider(height=15),
+                        
+                        # Browser test option
+                        ft.Container(
+                            content=ft.Row([
+                                ft.Checkbox(
+                                    label="🌐 Real Browser Load (Headless)",
+                                    value=True,
+                                    on_change=self.OnBrowserTestChange,
+                                    active_color=ft.Colors.CYAN_600
+                                ),
+                                ft.Text("(requires playwright)", size=12, color=ft.Colors.GREY_600)
+                            ]),
+                            padding=15,
+                            bgcolor=ft.Colors.WHITE,
+                            border_radius=ft.border_radius.all(8),
+                            border=ft.border.all(1, ft.Colors.CYAN_200)
+                        )
+                    ], spacing=10),
+                    padding=20
+                )
             ]),
-            bgcolor=ft.Colors.BLUE_50,
-            border_radius=ft.border_radius.all(8),
-            padding=15,
+            bgcolor=ft.Colors.CYAN_50,
+            border_radius=ft.border_radius.all(12),
+            border=ft.border.all(2, ft.Colors.CYAN_200),
+            shadow=ft.BoxShadow(
+                spread_radius=1,
+                blur_radius=8,
+                color=ft.Colors.CYAN_100,
+                offset=ft.Offset(0, 2)
+            ),
+            padding=20,
             visible=False
         )
         
@@ -114,64 +195,157 @@ class SpeedAnalysisPage(BasePage):
             on_click=self.OnToggleAdvanced
         )
         
-        # Loading indicator
-        self.loading_indicator = ft.ProgressRing(
-            visible=False,
-            width=50,
-            height=50,
-            stroke_width=3
-        )
-        
-        # Results container
-        self.results_container = ft.Container(
+        # Loading indicator with animation
+        self.loading_indicator = ft.Container(
             content=ft.Column([
+                ft.ProgressRing(
+                    visible=False,
+                    width=40,
+                    height=40,
+                    stroke_width=4,
+                    color=ft.Colors.CYAN_600
+                ),
                 ft.Text(
-                    "Speed analysis results will be displayed here.",
-                    size=16,
-                    color=ft.Colors.GREY_600,
+                    "Analyzing...",
+                    size=12,
+                    color=ft.Colors.CYAN_600,
                     font_family="Iransans-Regular"
                 )
-            ], scroll=ft.ScrollMode.AUTO),
+            ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=5),
+            visible=False
+        )
+        
+        # Results container with modern design
+        self.results_container = ft.Container(
+            content=ft.Column([
+                ft.Container(
+                    content=ft.Column([
+                        ft.Row([
+                            ft.Icon(ft.Icons.ANALYTICS, color=ft.Colors.CYAN_600, size=24),
+                            ft.Text(
+                                "📊 Analysis Results",
+                                size=20,
+                                weight=ft.FontWeight.BOLD,
+                                color=ft.Colors.CYAN_800,
+                                font_family="Iransans-Bold"
+                            )
+                        ]),
+                        ft.Text(
+                            "Speed analysis results will be displayed here. Enter a URL and click 'Start Analysis' to begin.",
+                            size=14,
+                            color=ft.Colors.GREY_600,
+                            font_family="Iransans-Regular"
+                        )
+                    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
+                    padding=30,
+                    bgcolor=ft.Colors.WHITE,
+                    border_radius=ft.border_radius.all(15),
+                    border=ft.border.all(2, ft.Colors.CYAN_200),
+                    shadow=ft.BoxShadow(
+                        spread_radius=1,
+                        blur_radius=10,
+                        color=ft.Colors.CYAN_100,
+                        offset=ft.Offset(0, 2)
+                    )
+                )
+            ], scroll=ft.ScrollMode.AUTO, spacing=15),
             padding=20,
-            bgcolor=ft.Colors.GREY_100,
-            border_radius=ft.border_radius.all(10),
+            bgcolor=ft.Colors.GREY_50,
+            border_radius=ft.border_radius.all(15),
             expand=True
         )
         
-        # Main page content
+        # Main page content with improved layout
         page_content = ft.Column([
-            # Header
-            ft.Text(
-                "Website Speed Analysis",
-                size=28,
-                weight=ft.FontWeight.BOLD,
-                font_family="Iransans-Bold",
-                color=ft.Colors.CYAN_700
+            # Header with gradient background
+            ft.Container(
+                content=ft.Column([
+                    ft.Row([
+                        ft.Icon(ft.Icons.SPEED, color=ft.Colors.WHITE, size=32),
+                        ft.Text(
+                            "🚀 Website Speed Analysis",
+                            size=32,
+                            weight=ft.FontWeight.BOLD,
+                            font_family="Iransans-Bold",
+                            color=ft.Colors.WHITE
+                        )
+                    ], alignment=ft.MainAxisAlignment.CENTER),
+                    ft.Text(
+                        "Analyze your website's performance and get detailed insights",
+                        size=16,
+                        color=ft.Colors.WHITE_70,
+                        font_family="Iransans-Regular"
+                    )
+                ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
+                bgcolor=ft.Colors.CYAN_600,
+                padding=30,
+                border_radius=ft.border_radius.all(15),
+                shadow=ft.BoxShadow(
+                    spread_radius=1,
+                    blur_radius=15,
+                    color=ft.Colors.CYAN_300,
+                    offset=ft.Offset(0, 4)
+                )
             ),
             
-            # Input section
-            ft.Text(
-                "Enter the website URL to analyze:",
-                size=18,
-                weight=ft.FontWeight.BOLD,
-                font_family="Iransans-Bold",
-                expand=True
+            # Input section with card design
+            ft.Container(
+                content=ft.Column([
+                    ft.Text(
+                        "🌐 Enter the website URL to analyze:",
+                        size=18,
+                        weight=ft.FontWeight.BOLD,
+                        font_family="Iransans-Bold",
+                        color=ft.Colors.CYAN_800
+                    ),
+                    ft.Row([
+                        self.url_input,
+                        self.analyze_button,
+                        self.toggle_advanced,
+                        self.loading_indicator
+                    ], alignment=ft.MainAxisAlignment.START, spacing=20),
+                ], spacing=20),
+                bgcolor=ft.Colors.WHITE,
+                padding=25,
+                border_radius=ft.border_radius.all(12),
+                border=ft.border.all(1, ft.Colors.CYAN_200),
+                shadow=ft.BoxShadow(
+                    spread_radius=1,
+                    blur_radius=8,
+                    color=ft.Colors.CYAN_100,
+                    offset=ft.Offset(0, 2)
+                )
             ),
-            ft.Row([
-                self.url_input,
-                self.analyze_button,
-                self.toggle_advanced,
-                self.loading_indicator
-            ], alignment=ft.MainAxisAlignment.START, spacing=20),
             
             # Advanced options
             self.advanced_options,
             
-            ft.Divider(height=30),
+            # Results section
+            ft.Container(
+                content=ft.Column([
+                    ft.Text(
+                        "📈 Analysis Results",
+                        size=20,
+                        weight=ft.FontWeight.BOLD,
+                        font_family="Iransans-Bold",
+                        color=ft.Colors.CYAN_800
+                    ),
+                    self.results_container
+                ], spacing=15),
+                bgcolor=ft.Colors.WHITE,
+                padding=20,
+                border_radius=ft.border_radius.all(12),
+                border=ft.border.all(1, ft.Colors.CYAN_200),
+                shadow=ft.BoxShadow(
+                    spread_radius=1,
+                    blur_radius=8,
+                    color=ft.Colors.CYAN_100,
+                    offset=ft.Offset(0, 2)
+                ),
+                expand=True
+            )
             
-            self.results_container
-            
-        ], scroll=ft.ScrollMode.AUTO, spacing=20)
+        ], scroll=ft.ScrollMode.AUTO, spacing=25)
         
         return page_content
     

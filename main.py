@@ -35,11 +35,12 @@ class NinjaAnalyzerApp:
         self.page = page
         page.title = "Website Analyzer - Ninja Analyzer"
         page.theme_mode = ft.ThemeMode.LIGHT
-        page.window_width = 1200
-        page.window_height = 800
-        page.window_resizable = False
-        page.padding = 20
+        page.window_width = 1400
+        page.window_height = 900
+        page.window_resizable = True
+        page.padding = 0
         page.rtl = False
+        page.bgcolor = ft.Colors.GREY_50
         
         # Apply font configuration
         ApplyFontTheme(page)

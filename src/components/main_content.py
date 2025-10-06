@@ -32,23 +32,48 @@ class MainContentComponent:
         self.speed_analysis_page.set_page(page)
         
         self.content_column = ft.Column([
-            ft.Text(
-                "Welcome to Ninja Analyzer", 
-                size=24, 
-                weight=ft.FontWeight.BOLD, 
-                font_family="Iransans-Bold"
+            # Welcome header with gradient
+            ft.Container(
+                content=ft.Column([
+                    ft.Text(
+                        "🎯 Welcome to Ninja Analyzer", 
+                        size=32, 
+                        weight=ft.FontWeight.BOLD, 
+                        font_family="Iransans-Bold",
+                        color=ft.Colors.CYAN_800
+                    ),
+                    ft.Text(
+                        "Professional Website Analysis Tool", 
+                        size=18, 
+                        font_family="Iransans-Regular",
+                        color=ft.Colors.GREY_600
+                    ),
+                    ft.Divider(height=20),
+                    ft.Text(
+                        "Select one of the analysis tools from the sidebar to begin analyzing your website's performance, SEO, and detecting potential issues.", 
+                        size=16, 
+                        font_family="Iransans-Regular",
+                        color=ft.Colors.GREY_700
+                    ),
+                ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
+                bgcolor=ft.Colors.WHITE,
+                padding=40,
+                border_radius=ft.border_radius.all(15),
+                border=ft.border.all(1, ft.Colors.CYAN_200),
+                shadow=ft.BoxShadow(
+                    spread_radius=1,
+                    blur_radius=10,
+                    color=ft.Colors.CYAN_100,
+                    offset=ft.Offset(0, 2)
+                )
             ),
-            ft.Text(
-                "Select one of the sidebar options to get started.", 
-                size=16, 
-                font_family="Iransans-Regular"
-            ),
-        ], scroll=ft.ScrollMode.AUTO)
+        ], scroll=ft.ScrollMode.AUTO, spacing=20)
         
         self.container = ft.Container(
             content=self.content_column,
-            padding=ft.padding.only(left=20),
-            expand=True
+            padding=ft.padding.all(30),
+            expand=True,
+            bgcolor=ft.Colors.GREY_50
         )
         
         return self.container
