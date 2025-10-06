@@ -85,6 +85,7 @@ class MainContentComponent:
         speed_content = self.speed_analysis_page.CreateSpeedAnalysisPage()
         self.content_column.controls.clear()
         self.content_column.controls.append(speed_content)
+        self.page.update()
     
     def ShowSeoAnalysis(self):
         """
@@ -106,6 +107,7 @@ class MainContentComponent:
                 font_family="Iransans-Regular"
             )
         )
+        self.page.update()
     
     def ShowBugAnalysis(self):
         """
@@ -127,3 +129,4 @@ class MainContentComponent:
                 font_family="Iransans-Regular"
             )
         )
+        self.page.update()

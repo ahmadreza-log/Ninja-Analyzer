@@ -50,12 +50,7 @@ class SpeedAnalysisPage(BasePage):
             border_radius=ft.border_radius.all(10),
             content_padding=ft.padding.all(15),
             text_size=16,
-            prefix_icon=ft.Icons.LINK,
-            style=ft.TextFieldStyle(
-                border_color=ft.Colors.CYAN_300,
-                focused_border_color=ft.Colors.CYAN_600,
-                border_width=2
-            )
+            prefix_icon=ft.Icons.LINK
         )
         
         # Analyze button with improved styling
@@ -218,134 +213,53 @@ class SpeedAnalysisPage(BasePage):
         # Results container with modern design
         self.results_container = ft.Container(
             content=ft.Column([
-                ft.Container(
-                    content=ft.Column([
-                        ft.Row([
-                            ft.Icon(ft.Icons.ANALYTICS, color=ft.Colors.CYAN_600, size=24),
-                            ft.Text(
-                                "📊 Analysis Results",
-                                size=20,
-                                weight=ft.FontWeight.BOLD,
-                                color=ft.Colors.CYAN_800,
-                                font_family="Iransans-Bold"
-                            )
-                        ]),
-                        ft.Text(
-                            "Speed analysis results will be displayed here. Enter a URL and click 'Start Analysis' to begin.",
-                            size=14,
-                            color=ft.Colors.GREY_600,
-                            font_family="Iransans-Regular"
-                        )
-                    ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
-                    padding=30,
-                    bgcolor=ft.Colors.WHITE,
-                    border_radius=ft.border_radius.all(15),
-                    border=ft.border.all(2, ft.Colors.CYAN_200),
-                    shadow=ft.BoxShadow(
-                        spread_radius=1,
-                        blur_radius=10,
-                        color=ft.Colors.CYAN_100,
-                        offset=ft.Offset(0, 2)
-                    )
+                ft.Text(
+                    "Speed analysis results will be displayed here.",
+                    size=16,
+                    color=ft.Colors.GREY_600,
+                    font_family="Iransans-Regular"
                 )
-            ], scroll=ft.ScrollMode.AUTO, spacing=15),
+            ], scroll=ft.ScrollMode.AUTO),
             padding=20,
-            bgcolor=ft.Colors.GREY_50,
-            border_radius=ft.border_radius.all(15),
+            bgcolor=ft.Colors.GREY_100,
+            border_radius=ft.border_radius.all(10),
             expand=True
         )
         
-        # Main page content with improved layout
+        # Main page content
         page_content = ft.Column([
-            # Header with gradient background
-            ft.Container(
-                content=ft.Column([
-                    ft.Row([
-                        ft.Icon(ft.Icons.SPEED, color=ft.Colors.WHITE, size=32),
-                        ft.Text(
-                            "🚀 Website Speed Analysis",
-                            size=32,
-                            weight=ft.FontWeight.BOLD,
-                            font_family="Iransans-Bold",
-                            color=ft.Colors.WHITE
-                        )
-                    ], alignment=ft.MainAxisAlignment.CENTER),
-                    ft.Text(
-                        "Analyze your website's performance and get detailed insights",
-                        size=16,
-                        color=ft.Colors.WHITE70,
-                        font_family="Iransans-Regular"
-                    )
-                ], horizontal_alignment=ft.CrossAxisAlignment.CENTER, spacing=10),
-                bgcolor=ft.Colors.CYAN_600,
-                padding=30,
-                border_radius=ft.border_radius.all(15),
-                shadow=ft.BoxShadow(
-                    spread_radius=1,
-                    blur_radius=15,
-                    color=ft.Colors.CYAN_300,
-                    offset=ft.Offset(0, 4)
-                )
+            # Header
+            ft.Text(
+                "Website Speed Analysis",
+                size=28,
+                weight=ft.FontWeight.BOLD,
+                font_family="Iransans-Bold",
+                color=ft.Colors.CYAN_700
             ),
             
-            # Input section with card design
-            ft.Container(
-                content=ft.Column([
-                    ft.Text(
-                        "🌐 Enter the website URL to analyze:",
-                        size=18,
-                        weight=ft.FontWeight.BOLD,
-                        font_family="Iransans-Bold",
-                        color=ft.Colors.CYAN_800
-                    ),
-                    ft.Row([
-                        self.url_input,
-                        self.analyze_button,
-                        self.toggle_advanced,
-                        self.loading_indicator
-                    ], alignment=ft.MainAxisAlignment.START, spacing=20),
-                ], spacing=20),
-                bgcolor=ft.Colors.WHITE,
-                padding=25,
-                border_radius=ft.border_radius.all(12),
-                border=ft.border.all(1, ft.Colors.CYAN_200),
-                shadow=ft.BoxShadow(
-                    spread_radius=1,
-                    blur_radius=8,
-                    color=ft.Colors.CYAN_100,
-                    offset=ft.Offset(0, 2)
-                )
+            # Input section
+            ft.Text(
+                "Enter the website URL to analyze:",
+                size=18,
+                weight=ft.FontWeight.BOLD,
+                font_family="Iransans-Bold",
+                expand=True
             ),
+            ft.Row([
+                self.url_input,
+                self.analyze_button,
+                self.toggle_advanced,
+                self.loading_indicator
+            ], alignment=ft.MainAxisAlignment.START, spacing=20),
             
             # Advanced options
             self.advanced_options,
             
-            # Results section
-            ft.Container(
-                content=ft.Column([
-                    ft.Text(
-                        "📈 Analysis Results",
-                        size=20,
-                        weight=ft.FontWeight.BOLD,
-                        font_family="Iransans-Bold",
-                        color=ft.Colors.CYAN_800
-                    ),
-                    self.results_container
-                ], spacing=15),
-                bgcolor=ft.Colors.WHITE,
-                padding=20,
-                border_radius=ft.border_radius.all(12),
-                border=ft.border.all(1, ft.Colors.CYAN_200),
-                shadow=ft.BoxShadow(
-                    spread_radius=1,
-                    blur_radius=8,
-                    color=ft.Colors.CYAN_100,
-                    offset=ft.Offset(0, 2)
-                ),
-                expand=True
-            )
+            ft.Divider(height=30),
             
-        ], scroll=ft.ScrollMode.AUTO, spacing=25)
+            self.results_container
+            
+        ], scroll=ft.ScrollMode.AUTO, spacing=20)
         
         return page_content
     
