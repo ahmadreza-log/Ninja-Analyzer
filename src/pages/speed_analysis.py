@@ -277,17 +277,17 @@ class SpeedAnalysisPage(BasePage):
                 
                 # Get response headers
                 response_headers = response.headers
-                content_type = response_headers.get('content-type', 'نامشخص')
-                server = response_headers.get('server', 'نامشخص')
+                content_type = response_headers.get('content-type', 'Unknown')
+                server = response_headers.get('server', 'Unknown')
                 content_encoding = response_headers.get('content-encoding', 'none')
-                cache_control = response_headers.get('cache-control', 'ندارد')
-                expires_hdr = response_headers.get('expires', 'ندارد')
+                cache_control = response_headers.get('cache-control', 'None')
+                expires_hdr = response_headers.get('expires', 'None')
                 # HTTP version (requests uses urllib3 raw.version: 11 => HTTP/1.1)
                 try:
                     raw_ver = getattr(response.raw, 'version', None)
-                    http_version = 'HTTP/1.1' if raw_ver == 11 else 'HTTP/1.0' if raw_ver == 10 else 'HTTP/2 (proxy)' if raw_ver == 20 else 'نامشخص'
+                    http_version = 'HTTP/1.1' if raw_ver == 11 else 'HTTP/1.0' if raw_ver == 10 else 'HTTP/2 (proxy)' if raw_ver == 20 else 'Unknown'
                 except Exception:
-                    http_version = 'نامشخص'
+                    http_version = 'Unknown'
                 redirect_count = len(getattr(response, 'history', []) or [])
                 # Best-practice analysis on HTML when applicable
                 best_practices = {}
@@ -303,10 +303,10 @@ class SpeedAnalysisPage(BasePage):
                 if self.deep_test:
                     # Analyze additional metrics
                     expires = expires_hdr
-                    last_modified = response_headers.get('last-modified', 'ندارد')
-                    etag = response_headers.get('etag', 'ندارد')
-                    connection = response_headers.get('connection', 'ندارد')
-                    keep_alive = response_headers.get('keep-alive', 'ندارد')
+                    last_modified = response_headers.get('last-modified', 'None')
+                    etag = response_headers.get('etag', 'None')
+                    connection = response_headers.get('connection', 'None')
+                    keep_alive = response_headers.get('keep-alive', 'None')
                     
                     # Calculate additional performance metrics
                     # Prefer real TTFB if available
@@ -458,22 +458,22 @@ class SpeedAnalysisPage(BasePage):
     def AnalyzeSecurityHeaders(self, headers):
         """Analyze security headers."""
         security_headers = {
-            'https': headers.get('strict-transport-security', 'ندارد'),
-            'x_frame_options': headers.get('x-frame-options', 'ندارد'),
-            'x_content_type': headers.get('x-content-type-options', 'ندارد'),
-            'x_xss_protection': headers.get('x-xss-protection', 'ندارد'),
-            'content_security_policy': headers.get('content-security-policy', 'ندارد'),
-            'referrer_policy': headers.get('referrer-policy', 'ندارد')
+            'https': headers.get('strict-transport-security', 'None'),
+            'x_frame_options': headers.get('x-frame-options', 'None'),
+            'x_content_type': headers.get('x-content-type-options', 'None'),
+            'x_xss_protection': headers.get('x-xss-protection', 'None'),
+            'content_security_policy': headers.get('content-security-policy', 'None'),
+            'referrer_policy': headers.get('referrer-policy', 'None')
         }
         
         # Calculate security score
         security_score = 0
         for header, value in security_headers.items():
-            if value != 'ندارد':
+            if value != 'None':
                 security_score += 1
         
         security_headers['score'] = security_score
-        security_headers['grade'] = 'عالی' if security_score >= 5 else 'خوب' if security_score >= 3 else 'متوسط' if security_score >= 1 else 'ضعیف'
+        security_headers['grade'] = 'Excellent' if security_score >= 5 else 'Good' if security_score >= 3 else 'Average' if security_score >= 1 else 'Poor'
         
         return security_headers
 
@@ -848,7 +848,7 @@ class SpeedAnalysisPage(BasePage):
             if 'performance_grade' in results:
                 grade_card = ft.Container(
                     content=ft.Column([
-                        ft.Text("نمره کلی", size=16, weight=ft.FontWeight.BOLD, font_family="Iransans-Bold"),
+                        ft.Text("Overall Grade", size=16, weight=ft.FontWeight.BOLD, font_family="Iransans-Bold"),
                         ft.Text(f"{results['performance_grade']['grade']}", size=32, weight=ft.FontWeight.BOLD, color=ft.Colors.GREEN, font_family="Iransans-Bold"),
                         ft.Text(f"{results['performance_grade']['score']}/100", size=14, color=ft.Colors.GREY_600, font_family="Iransans-Regular")
                     ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
@@ -930,7 +930,7 @@ class SpeedAnalysisPage(BasePage):
                     score_card,
                     ft.VerticalDivider(),
                     ft.Column([
-                        ft.Text("معیارهای کلیدی", size=16, weight=ft.FontWeight.BOLD, font_family="Iransans-Bold"),
+                        ft.Text("Key Metrics", size=16, weight=ft.FontWeight.BOLD, font_family="Iransans-Bold"),
                         metrics_row
                     ], expand=True)
                 ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
@@ -950,7 +950,7 @@ class SpeedAnalysisPage(BasePage):
         # Add advanced metrics if available
         if advanced_metrics:
             sections.extend([
-                ft.Text("معیارهای پیشرفته", size=18, weight=ft.FontWeight.BOLD, font_family="Iransans-Bold"),
+                ft.Text("Advanced Metrics", size=18, weight=ft.FontWeight.BOLD, font_family="Iransans-Bold"),
                 advanced_metrics,
                 ft.Divider(height=20)
             ])
@@ -962,10 +962,10 @@ class SpeedAnalysisPage(BasePage):
                         grade_card,
                         ft.Container(
                             content=ft.Column([
-                                ft.Text("تحلیل محتوا", size=16, weight=ft.FontWeight.BOLD, font_family="Iransans-Bold"),
-                                ft.Text(f"تصاویر: {results.get('content_analysis', {}).get('img_count', 0)}", size=12, font_family="Iransans-Regular"),
-                                ft.Text(f"لینک‌ها: {results.get('content_analysis', {}).get('link_count', 0)}", size=12, font_family="Iransans-Regular"),
-                                ft.Text(f"اسکریپت‌ها: {results.get('content_analysis', {}).get('script_count', 0)}", size=12, font_family="Iransans-Regular"),
+                                ft.Text("Content Analysis", size=16, weight=ft.FontWeight.BOLD, font_family="Iransans-Bold"),
+                                ft.Text(f"Images: {results.get('content_analysis', {}).get('img_count', 0)}", size=12, font_family="Iransans-Regular"),
+                                ft.Text(f"Links: {results.get('content_analysis', {}).get('link_count', 0)}", size=12, font_family="Iransans-Regular"),
+                                ft.Text(f"Scripts: {results.get('content_analysis', {}).get('script_count', 0)}", size=12, font_family="Iransans-Regular"),
                             ]),
                             bgcolor=ft.Colors.BLUE_50,
                             border_radius=ft.border_radius.all(8),
@@ -978,7 +978,7 @@ class SpeedAnalysisPage(BasePage):
         
         # Add pie chart
         sections.extend([
-            ft.Text("توزیع عملکرد", size=18, weight=ft.FontWeight.BOLD, font_family="Iransans-Bold"),
+            ft.Text("Performance Distribution", size=18, weight=ft.FontWeight.BOLD, font_family="Iransans-Bold"),
             pie_chart,
             ft.Divider(height=20),
             
@@ -999,7 +999,7 @@ class SpeedAnalysisPage(BasePage):
             security_section = ft.Container(
                 content=ft.Column([
                     ft.Text(
-                        f"تحلیل امنیت - نمره: {results['security_headers']['score']}/6 ({results['security_headers']['grade']})",
+                        f"Security Analysis - Score: {results['security_headers']['score']}/6 ({results['security_headers']['grade']})",
                         size=18,
                         weight=ft.FontWeight.BOLD,
                         font_family="Iransans-Bold"
@@ -1388,15 +1388,15 @@ class SpeedAnalysisPage(BasePage):
         recommendations = []
         
         if results['response_time'] > 2000:
-            recommendations.append("زمان پاسخ بالا است. بهینه‌سازی سرور را در نظر بگیرید.")
+            recommendations.append("Response time is high. Consider server optimization.")
         
         if results['content_size'] > 1024 * 1024:  # > 1MB
-            recommendations.append("اندازه صفحه بزرگ است. فشرده‌سازی تصاویر و کدها را در نظر بگیرید.")
+            recommendations.append("Page size is large. Consider compressing images and code.")
         
         if results['status_code'] != 200:
-            recommendations.append("کد وضعیت غیر از 200 است. مشکلات سرور را بررسی کنید.")
+            recommendations.append("Status code is not 200. Check server issues.")
         
         if not recommendations:
-            recommendations.append("عملکرد وبسایت خوب است! 🎉")
+            recommendations.append("Website performance is good! 🎉")
         
         return recommendations
